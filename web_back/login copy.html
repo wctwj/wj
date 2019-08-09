@@ -62,3 +62,30 @@
 <script src="./js/jquery-1.12.4.min.js"></script>
 <!-- 导入bs的js -->
 <script src="./js/bootstrap/js/bootstrap.min.js"></script>
+
+<script>
+  $('.input_sub').on('click',function(e){
+    e.preventDefault();
+    if($('input_txt').val()===''||$('.input_pass').val()===''){
+    $('.modal-body').text('内容未填写完毕');
+    $('#myModal').modal();
+    return;
+  }
+  $.post({
+    url:'https://autumnfish.cn/big/admin/login',
+    data:{
+      user_name:$('.input_txt').val(),
+      password:$('input_pass').val()
+    },
+    success:function(res){
+      if(res.code===200){
+        location.href = 'index.html';
+
+      }else if(res.code===400){
+        $('.modal-body').text('用户名或密码错误');
+        $('#myModal').modal();
+      }
+    }
+  });
+  });
+</script>
